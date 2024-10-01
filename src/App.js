@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useInView } from "react-intersection-observer";
 import useGetTopRatedMovies from "./hooks/useGetTopRatedMovies";
 
 export default function App() {
@@ -11,9 +12,15 @@ export default function App() {
     isFetchingNextPage,
   } = useGetTopRatedMovies();
   console.log("asdsad", data);
+  const { ref, inView } = useInView();
 
-  if (isLoading) return <div>Loading...</div>; // 데이터 로딩 중일 때 표시
-  if (error) return <div>Error: {error.message}</div>; // 에러가 있을 경우 표시
+  useEffect(() => {
+    console.log("화면에 있습니까?", inView);
+
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage]);
 
   return (
     <div className="App">
@@ -42,11 +49,14 @@ export default function App() {
         <div>No data available</div>
       )}
 
-      {/* 다음 페이지 로딩 버튼 */}
       {hasNextPage && (
-        <button onClick={fetchNextPage} disabled={isFetchingNextPage}>
-          {isFetchingNextPage ? "Loading more..." : "Load more"}
-        </button>
+        <h1
+          ref={ref}
+          className="flex justify-center items-center mt-4 mb-4 text-3xl font-bold"
+          disabled={isFetchingNextPage}
+        >
+          {isFetchingNextPage ? "🔍 빨리 보여줘 👀" : "Load more"}
+        </h1>
       )}
     </div>
   );
