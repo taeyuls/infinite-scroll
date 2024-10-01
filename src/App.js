@@ -10,19 +10,19 @@ export default function App() {
     hasNextPage,
     isFetchingNextPage,
   } = useGetTopRatedMovies();
-  console.log("data", data);
+  console.log("asdsad", data);
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <div>Loading...</div>; // 데이터 로딩 중일 때 표시
+  if (error) return <div>Error: {error.message}</div>; // 에러가 있을 경우 표시
 
   return (
     <div className="App">
-      {/* 데이터가 있는지 확인 후 렌더링 */}
+      {/* 데이터와 페이지가 존재하는지 확인 후 렌더링 */}
       {data && data.pages ? (
         <div className="grid grid-cols-3 gap-4 max-w-[1000px] m-auto">
           {data.pages.map((page, index) => (
             <React.Fragment key={index}>
-              {page.results.map((movie) => (
+              {page?.results?.map((movie) => (
                 <div key={movie.id} className="col-span-1">
                   <div className="flex justify-center items-center h-full">
                     <div className="w-full h-full object-cover">
@@ -42,6 +42,7 @@ export default function App() {
         <div>No data available</div>
       )}
 
+      {/* 다음 페이지 로딩 버튼 */}
       {hasNextPage && (
         <button onClick={fetchNextPage} disabled={isFetchingNextPage}>
           {isFetchingNextPage ? "Loading more..." : "Load more"}

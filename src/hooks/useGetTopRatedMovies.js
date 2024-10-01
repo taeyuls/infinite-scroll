@@ -5,7 +5,8 @@ const fetchTopRatedMovies = async (page = 1) => {
     `https://api.themoviedb.org/3/movie/top_rated?page=${page}`,
     {
       headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyZDhhMjI1N2Y1OGM2MTRmYmY1ZjVhYzQ4ZjkxYjkwYyIsIm5iZiI6MTcyNzc2MTgzMy43MDE1MzQsInN1YiI6IjY1YmI0MGZhZDdjZDA2MDE2MTUyNjllNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.2nueHyCRz4NwPRD-RZxFa2mTbKjuLO1ddgYUYXLpUSM",
       },
     }
   );
